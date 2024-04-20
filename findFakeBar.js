@@ -32,9 +32,10 @@ const ALERT_SUCCESS_TEXT = "Yay! You find it!";
 
     // Browser Action Functions
     async function fillBowls(leftBars, rightBars) {
-        await leftBars.forEach((e, i) => { leftBowlSlots[i].setValue(e) });
-        await rightBars.forEach((e, i) => { rightBowlSlots[i].setValue(e) });
+        await Promise.all(leftBars.map((e, i) => { leftBowlSlots[i].setValue(e) }));
+        await Promise.all(rightBars.map((e, i) => { rightBowlSlots[i].setValue(e) }));
     }
+
     async function clickWeighButton() {
         const weighingsCount = (await browser.$$('.game-info > ol > li')).length;
 
@@ -49,21 +50,26 @@ const ALERT_SUCCESS_TEXT = "Yay! You find it!";
 
         return await resultButton.getText(); // Return the result of the weighing
     }
+
     async function getAllWeighings() {
         return (await browser.$$('.game-info > ol > li')).map((x) => x.getText());
     }
+
     async function clickResetButton() {
         await resetButton.click();
     }
+
     async function clickFakeBar(barNum) {
         await browser.$(`#coin_${barNum}`).click();
     }
+
     async function getAlertText() {
         return await browser.getAlertText(); 
     }
+
     async function foundCorrectBar(barNum) {
         await clickFakeBar(barNum);
-        return (await getAlertText() == ALERT_SUCCESS_TEXT) ? true : false;
+        return await getAlertText() === ALERT_SUCCESS_TEXT;
     }
 
 
@@ -95,7 +101,7 @@ const ALERT_SUCCESS_TEXT = "Yay! You find it!";
     const fakeBar = await findFakeBar(barsArray);
 
     // Variables to Output
-    const success = await foundCorrectBar(await fakeBar);
+    const success = await foundCorrectBar(fakeBar);
     const alertText = await getAlertText();
     const weighingsList = await getAllWeighings();
     const numberOfWeighings = weighingsList.length;
