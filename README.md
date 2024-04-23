@@ -13,3 +13,10 @@
 - This program will still work the same if more bars are added
 - The program defaults to using a 'headful' browser window so the user can see what is going on. To run headless, simply set `RUN_BROWSER_HEADLESS` to `true` in line 2 of findFakeBar.js
   - Regardless of the above setting, program output will be found in the terminal it is run in
+## Submission Feedback From Company (Failed this project)
+- should get the browser to close after the test runs
+- should also close the operation in terminal. My terminal is still running even though the operation is done.
+- should explicitly state which bar is the fake bar
+- put helper functions in a separate file
+- declare constants and elements in another file
+- in the readme, describe how you went about the solution (like splitting the gold bars into 3 piles, etc)
