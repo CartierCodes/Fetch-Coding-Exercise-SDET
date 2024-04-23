@@ -1,5 +1,6 @@
 {
   "dependencies": {
     "webdriverio": "^8.36.0"
-  }
+  },
+  "type": "module"
 }
